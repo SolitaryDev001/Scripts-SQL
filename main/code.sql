@@ -37,6 +37,6 @@ CREATE TABLE DETALLE_DOMINIO (
   CONSTRAINT INSTRUMENTO_PK PRIMARY KEY (COD_INSTRUM, RUT_PROFE ),
   FOREIGN KEY(COD_INSTRUM) REFERENCES INSTRUMENTO(cod),
   FOREIGN KEY(RUT_PROFE) REFERENCES PROFESOR(rut)
-)
+);
 
---Creamos la tabla detalle_dominio con referencia de 2 primary key de codigo insstrumento y de profesor
+--Creamos la tabla detalle_dominio con referencia de 2 primary key de codigo instrumento y de profesor
