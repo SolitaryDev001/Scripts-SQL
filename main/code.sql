@@ -6,19 +6,6 @@ CREATE TABLE INSTRUMENTO (
 
 --Creamos la Tabla fuerte
 
-CREATE TABLE ALUMNO(
- RUT  NUMBER(8) CONSTRAINT ALUMNO_PK  PRIMARY KEY, 
- DV   CHAR(1)   NOT NULL   CONSTRAINT  ALUMNO_DV_CK CHECK (DV  IN ( '0','1','2','3','4','5','6','7','8','9','K' )  ),
- nombre         VARCHAR2(25) NOT NULL, 
- pri_apellido   VARCHAR2(25) NOT NULL, 
- seg_apellido   VARCHAR2(25) NOT NULL, 
- fecha_nac      DATE,
- mail           VARCHAR2(50) NOT NULL,
- cod_instrumento  NUMBER(3)  NOT NULL CONSTRAINT ALUMNO_INSTRUMENTO_FK REFERENCES INSTRUMENTO ( cod ) 
-);
-
---Creamos la Tabla alumno, que tiene como referencia el codigo de instrumento y rut como primary key y sus restricciones
-
 CREATE TABLE PROFESOR(
  RUT  NUMBER(8) CONSTRAINT PROFESOR_PK  PRIMARY KEY, 
  DV   CHAR(1)   NOT NULL   CONSTRAINT  PROFESOR_DV_CK CHECK (DV  IN ( '0','1','2','3','4','5','6','7','8','9','K' )  ),
