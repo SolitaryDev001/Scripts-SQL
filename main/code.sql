@@ -25,8 +25,7 @@ CREATE TABLE PROFESOR(
  nombre         VARCHAR2(25) NOT NULL,
  pri_apellido   VARCHAR2(25) NOT NULL,
  seg_apellido   VARCHAR2(25) NOT NULL,
- mail           VARCHAR2(50) CONSTRAINT MAIL_UK UNIQUE,
- cod_instrumento  NUMBER(3)  NOT NULL CONSTRAINT profesor_FK REFERENCES INSTRUMENTO ( cod ) 
+ mail           VARCHAR2(50) CONSTRAINT MAIL_UK UNIQUE
 );
 
 --Creamos la Tabla profesor, con codigo de instrumento y rut primary key y sus restricciones
