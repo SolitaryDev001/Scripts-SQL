@@ -1,0 +1,31 @@
+--Ejercicios SQL
+
+SELECT  'El empleado ' || INITCAP(nombre_emp ||' '|| appaterno_emp
+||' '|| apmaterno_emp) || ' nacio el ' || TO_CHAR(fecnac_emp, 'DD/MM/YYYY')
+AS "LISTA DE CUMPLEANIOOS"
+FROM EMPLEADO
+WHERE TO_CHAR(fecnac_emp, 'YY') < '72'
+--Limitar Fechas de cumpleanioos desde 1972
+ORDER BY fecnac_emp asc, appaterno_emp asc;
+--Doble orden fecha nacimiento ascendente y appaterno ascendente
+
+SELECT TO_CHAR(numrut_cli, '99G999G999') ||'-'|| dvrut_cli AS "RUT CLIENTE", INITCAP(appaterno_cli ||' '||
+apmaterno_cli ||' '|| nombre_cli) AS "NOMBRE CLIENTE",
+TO_CHAR(renta_cli, '$9G999G999') AS "RENTA", LPAD(fonofijo_cli, 12) AS "TELEFON FIJO", LPAD(NVL(TO_CHAR(celular_cli), 'No Tiene Celular'), 16, '-')
+ AS "CELULAR"
+ --LPDA Rellenar espacios blancos y NVL reemplazar los valores null as para reenombrar la categoria
+FROM CLIENTE
+ORDER BY 3;
+--Ordenar por la categoria 3
+
+SELECT INITCAP(nombre_emp || ' ' || appaterno_emp || ' ' || appaterno_emp)
+--Iniciar con Mayusculas
+AS "NOMBRE EMPLEADO", TO_CHAR(sueldo_emp, '$9G999G999') || '' AS "SUELDO",
+--Convertir valor a char y usar G que reemplaza los .
+TO_CHAR(ROUND(sueldo_emp*0.5), '$99G999G999') AS "BONO POR CAPACITACION"
+--Convertir valor a char y redondear
+FROM EMPLEADO
+WHERE ROUND(sueldo_emp*0.5) > 500000 AND nombre_emp LIKE '__R%'
+--Bono de Capacitacion Mayor a 500000 y nombre que tenga la R en la tercer letra desde el inicio
+ORDER BY sueldo_emp desc;
+--Ordenar por sueldo descendente
