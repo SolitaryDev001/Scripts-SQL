@@ -1,23 +1,26 @@
---Ejercicios SQL
-
+--Caso 1
 SELECT  'El empleado ' || INITCAP(nombre_emp ||' '|| appaterno_emp
 ||' '|| apmaterno_emp) || ' nacio el ' || TO_CHAR(fecnac_emp, 'DD/MM/YYYY')
 AS "LISTA DE CUMPLEANIOOS"
 FROM EMPLEADO
-WHERE TO_CHAR(fecnac_emp, 'YY') < '72'
+--WHERE TO_CHAR(fecnac_emp, 'YY') < '72'
 --Limitar Fechas de cumpleanioos desde 1972
 ORDER BY fecnac_emp asc, appaterno_emp asc;
 --Doble orden fecha nacimiento ascendente y appaterno ascendente
 
+
+--Caso 2
 SELECT TO_CHAR(numrut_cli, '99G999G999') ||'-'|| dvrut_cli AS "RUT CLIENTE", INITCAP(appaterno_cli ||' '||
 apmaterno_cli ||' '|| nombre_cli) AS "NOMBRE CLIENTE",
-TO_CHAR(renta_cli, '$9G999G999') AS "RENTA", LPAD(fonofijo_cli, 12) AS "TELEFON FIJO", LPAD(NVL(TO_CHAR(celular_cli), 'No Tiene Celular'), 16, '-')
+TO_CHAR(renta_cli, '$9G999G999') AS "RENTA", LPAD(fonofijo_cli, 12) AS "TELEFON FIJO", LPAD(NVL(TO_CHAR(celular_cli), 'SIN NUMERO'), 16, '-')
  AS "CELULAR"
  --LPDA Rellenar espacios blancos y NVL reemplazar los valores null as para reenombrar la categoria
 FROM CLIENTE
 ORDER BY 3;
 --Ordenar por la categoria 3
 
+
+--Caso 3
 SELECT INITCAP(nombre_emp || ' ' || appaterno_emp || ' ' || appaterno_emp)
 --Iniciar con Mayusculas
 AS "NOMBRE EMPLEADO", TO_CHAR(sueldo_emp, '$9G999G999') || '' AS "SUELDO",
@@ -29,3 +32,29 @@ WHERE ROUND(sueldo_emp*0.5) > 500000 AND nombre_emp LIKE '__R%'
 --Bono de Capacitacion Mayor a 500000 y nombre que tenga la R en la tercer letra desde el inicio
 ORDER BY sueldo_emp desc;
 --Ordenar por sueldo descendente
+
+
+--Caso 4
+SELECT NRO_PROPIEDAD AS "NUMERO PROPIEDAD", NUMRUT_PROP AS "RUN PROPIETARIO",
+DIRECCION_PROPIEDAD AS "DIRECCION", TO_CHAR(VALOR_ARRIENDO, '$9G999G999') AS "VALOR ARRIENDO",
+TO_CHAR((VALOR_ARRIENDO*0.54), '$9G999G999') AS "VALOR COMPENSACION"
+FROM PROPIEDAD
+ORDER BY NUMRUT_PROP ASC;
+
+
+--Caso 5
+SELECT (NUMRUT_EMP ||'-'|| DVRUT_EMP) AS "RUN EMPLEADO", INITCAP(NOMBRE_EMP ||' '|| APPATERNO_EMP ||' '|| APMATERNO_EMP)
+AS "NOMBRE PROPIETARIO", TO_CHAR(SUELDO_EMP, '$9G999G999') AS "SALARIO ACTUAL",
+TO_CHAR(ROUND(SUELDO_EMP * 1.1305), '$9G999G999') AS "SALARIO REAJUSTADO", TO_CHAR(ROUND(SUELDO_EMP * 0.135), '$9G999G999') AS "REAJUSTE"
+--, (2022 - TO_CHAR(FECING_EMP, 'YYYY')) AS "A�OS TRABAJANDO" NO USADO
+FROM EMPLEADO
+ORDER BY ROUND(SUELDO_EMP * 0.135) DESC ,APPATERNO_EMP ASC;
+
+
+--Caso 6
+SELECT INITCAP(nombre_emp || ' ' || appaterno_emp || ' ' || appaterno_emp) AS "NOMBRE EMPLEADO",
+TO_CHAR(ROUND(SUELDO_EMP), '$9G999G999') AS "SALARIO", TO_CHAR(ROUND(SUELDO_EMP * 0.055), '$9G999G999') AS "GASTO COLACION", TO_CHAR(ROUND(SUELDO_EMP * 0.178), '$9G999G999') AS "GASTO MOVILIZACION",
+TO_CHAR(ROUND(SUELDO_EMP * 0.078), '$9G999G999') AS "DESCUENTO SALUD", TO_CHAR(ROUND(SUELDO_EMP * 0.65), '$9G999G999') AS "DESCUENTO AFP", TO_CHAR(ROUND(SUELDO_EMP * 1.09), '$9G999G999') AS "ALCANCE LIQUIDO"
+--Multiplicamos el sueldo por la suma de todos los porcentajes (0.055 (0.55) + 0.178 (17.8) - 0.078 (7.8) - 0.065 (6.5) = 1.09)
+FROM EMPLEADO
+ORDER BY APPATERNO_EMP ASC;
